@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-VERSION='0.0.2'
+VERSION='0.0.3'
 
 main() {
+    # Check arguments
+    [[ "${#1}" -lt 1 ]] && help_exit
+    [[ "$1" == '--help' ]] && help_exit
+
     # Declare variables, check paths
     declare -a outfiles pids
     local base_dir start_time result_dir
@@ -24,11 +28,11 @@ main() {
     shift
 
     # Find the longest search term
-	local lst=6
-	for term in "$@"
-	do
-	    [[ "${#term}" -gt "$lst" ]] && lst="${#term}"
-	done
+    local lst=6
+    for term in "$@"
+    do
+        [[ "${#term}" -gt "$lst" ]] && lst="${#term}"
+    done
 
     # Start search for each parameter
     while (( "$#" ))
@@ -111,14 +115,14 @@ separator() {
     echo '================================================================================'
 }
 
-print_help() {
+help_exit() {
     printf 'Multigrep V%s\n' "${VERSION}"
     printf 'Usage:\n'
     printf 'grep.sh DIRECTORY TERMS...\n'
     printf 'Search recursively in DIRECTORY for any of the search TERMs.\n'
+    exit 0
 }
-
-[[ "$1" == '--help' ]] && print_help && exit
 
 trap handle_sigint SIGINT
 main "$@"
+
