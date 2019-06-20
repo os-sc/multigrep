@@ -116,9 +116,8 @@ separator() {
 }
 
 help_exit() {
-    printf 'Multigrep V%s\n' "${VERSION}"
-    printf 'Usage:\n'
-    printf 'grep.sh DIRECTORY TERMS...\n'
+    printf 'Multigrep V%s\n\n' "${VERSION}"
+    printf 'Usage: grep.sh DIRECTORY TERMS...\n'
     printf 'Search recursively in DIRECTORY for any of the search TERMs.\n'
     exit 0
 }

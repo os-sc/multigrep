@@ -1,0 +1,30 @@
+.TH multigrep 1 "2019-06-20" "0.0.3" "multigrep man page"
+.SH NAME
+multigrep - search for multiple terms in a directory
+.SH SYNOPSIS
+.SY
+multigrep [OPTIONS] DIRECTORY TERMS...
+.YS
+.SH DESCRIPTION
+multigrep is a bash(1) shell script to search for multiple search
+.B TERMs
+in all files in a given
+.B DIRECTORY.
+.SH OPTIONS
+.B "--help"
+.IP
+Displays the help text
+.SH OUTPUT
+For every invocation, a folder named after the current date/time will be created
+under
+.I `DIRECTORY/.results'
+which contains a file with the results of each search.
+If multigrep is called like
+.I `multigrep /var/log error warning'
+the following
+files would be created:
+.IP
+/var/log/.results/2042-12-31T13:37:99/error.grep
+.IP
+/var/log/.results/2042-12-31T13:37:99/warning.grep
+.P
