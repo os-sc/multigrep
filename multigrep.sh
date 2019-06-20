@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-VERSION='0.1'
+VERSION='0.0.2'
 
 main() {
     # Declare variables, check paths
-    local   base_dir="$(realpath $1)"
-    local start_time="$(date '+%Y-%m-%dT%H:%M:%S')"
-    local result_dir="${base_dir}/.results/$start_time"
     declare -a outfiles pids
+    local base_dir start_time result_dir
+
+    base_dir="$(realpath "$1")"
+    start_time="$(date '+%Y-%m-%dT%H:%M:%S')"
+    result_dir="${base_dir}/.results/$start_time"
 
     if [ ! -d "$base_dir" ]
     then
@@ -51,7 +53,8 @@ main() {
         separator
         echo "Jobs started at $start_time"
 
-        local jobs="$(ps --no-headers -p "${pids[@]}" | wc -l - | awk '{print $1}')"
+        local jobs
+        jobs="$(ps --no-headers -p "${pids[@]}" | wc -l - | awk '{print $1}')"
         echo "Jobs running: $jobs"
 
         # Print PID table
@@ -109,8 +112,10 @@ separator() {
 }
 
 print_help() {
-    echo "Usage:"
-    echo "grep.sh {--help | path to search} [search terms]"
+    printf 'Multigrep V%s\n' "${VERSION}"
+    printf 'Usage:\n'
+    printf 'grep.sh DIRECTORY TERMS...\n'
+    printf 'Search recursively in DIRECTORY for any of the search TERMs.\n'
 }
 
 [[ "$1" == '--help' ]] && print_help && exit
